@@ -1,0 +1,29 @@
+== Install ==
+Make sure you have the following software which httpredisq depend on installed:
+
+1, libevent
+you may use the 2.0.10 version, which can handle data correctly when the post data in http is much longer than 1024.
+Reference: http://monkey.org/~provos/libevent-2.0.10-stable.tar.gz
+
+2, redis
+The back-end storage message using redis' queue(RPUSH and LPOP), so you should install redis and run a redis server before you start up httpredisq
+Reference: http://redis.googlecode.com/files/redis-2.2.2.tar.gz
+
+3, redis C API
+Of course, you need to install redis C API, download from the followed web page, then make & make install.
+Reference: http://github.com/antirez/hiredis
+
+After you installed all of these soft mentioned above, modify the Makefile, make sure the lib and include path are the same as the you configured when install them, then just make & make install
+
+== Test ==
+When you make successfully, run:
+./httpsqs -p 1234 (maybe other options depend on your redis-server config)
+then test push queue and pop queue:
+PUSH: 
+curl "http://localhost:1234/?name=test&opt=put&date=testqueuedata"
+POP:
+curl "http://localhost:1234/?name=test&opt=get"
+
+== Other ==
+BTW, the line number of source code is just about 300, if you encounter any problem, try to view the source and fix it.
+Good Luck!
